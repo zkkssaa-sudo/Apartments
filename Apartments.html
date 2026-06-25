@@ -2,11 +2,29 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
 <title>متابع الشقق</title>
+
+<!-- ✅ PWA Meta Tags - لجعل التطبيق يفتح بشاشة كاملة -->
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="متابع الشقق"/>
+<meta name="application-name" content="متابع الشقق"/>
+<meta name="theme-color" content="#1e40af"/>
+<meta name="msapplication-navbutton-color" content="#1e40af"/>
+<meta name="format-detection" content="telephone=no"/>
+
+<!-- ✅ Manifest مدمج كـ Data URI -->
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"متابع الشقق","short_name":"الشقق","description":"إدارة العقود والدفعات والصيانة","start_url":"./","display":"standalone","orientation":"portrait","background_color":"%231e40af","theme_color":"%231e40af","lang":"ar","dir":"rtl","icons":[{"src":"data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 192 192%22><rect width=%22192%22 height=%22192%22 fill=%22%231e40af%22 rx=%2230%22/><text x=%2296%22 y=%22130%22 font-size=%22110%22 text-anchor=%22middle%22>🏠</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}'/>
+
+<!-- ✅ أيقونة Apple Touch -->
+<link rel="apple-touch-icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" fill="%231e40af" rx="30"/><text x="96" y="130" font-size="110" text-anchor="middle">🏠</text></svg>'/>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;padding-bottom:80px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overscroll-behavior:none}
+body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;padding-bottom:80px;padding-top:env(safe-area-inset-top);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 .header{background:linear-gradient(135deg,#1e40af,#3b82f6);padding:20px 15px;text-align:center;color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.2)}
 .header h1{font-size:22px;margin-bottom:5px}
 .header p{font-size:13px;opacity:.95}
@@ -44,6 +62,11 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 .apt-info{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px;color:#64748b}
 .apt-info span{color:#1e293b;font-weight:600}
 .apt-info .ltr{direction:ltr;display:inline-block;unicode-bidi:embed}
+.contact-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.contact-btn{padding:9px;border-radius:10px;text-align:center;text-decoration:none;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:5px;color:#fff;transition:.2s;border:none;cursor:pointer}
+.contact-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.contact-call{background:#16a34a}
+.contact-wa{background:#25D366}
 .view-btn-main{display:block;width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;margin-top:12px;box-shadow:0 2px 6px rgba(124,58,237,.3)}
 .view-btn-main:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(124,58,237,.4)}
 .view-btn-main:active{transform:translateY(0)}
@@ -91,18 +114,30 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 .modal h2{margin-bottom:15px;font-size:18px;color:#2563eb}
 .modal label{display:block;font-size:13px;color:#64748b;margin:8px 0 4px}
 .modal input,.modal textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#1e293b;font-size:14px}
-.modal input[type="number"],.modal input[type="date"]{direction:ltr;text-align:right}
+.modal input[type="number"],.modal input[type="date"],.modal input[type="tel"]{direction:ltr;text-align:right}
 .modal textarea{min-height:80px;resize:vertical}
 .modal-actions{display:flex;gap:8px;margin-top:15px;justify-content:flex-end;flex-wrap:wrap}
 .search-box{margin-bottom:12px;position:relative}
 .search-box input{width:100%;padding:12px 16px;border-radius:12px;border:1px solid #cbd5e1;background:#fff;color:#1e293b;font-size:14px;transition:.2s}
 .search-box input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 .search-box input::placeholder{color:#94a3b8}
+
+/* ✅ كرت الملخص المحسّن */
 .sum-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .sum-title{font-size:13px;color:#64748b;margin-bottom:6px}
 .sum-value{font-size:22px;font-weight:bold;color:#2563eb;direction:ltr;display:inline-block}
+
+/* ✅ تنسيق خاص للأرقام النسبية (مدفوع/إجمالي) */
+.sum-ratio{display:flex;align-items:baseline;gap:8px;direction:ltr;justify-content:flex-start}
+.sum-ratio-current{font-size:28px;font-weight:bold;color:#16a34a}
+.sum-ratio-divider{font-size:20px;color:#94a3b8;font-weight:300}
+.sum-ratio-total{font-size:20px;color:#64748b;font-weight:600}
+.sum-ratio-percent{font-size:12px;color:#64748b;margin-right:auto;background:#f1f5f9;padding:3px 10px;border-radius:12px;font-weight:bold}
+
 .progress-bar{background:#e2e8f0;border-radius:10px;height:6px;margin-top:6px;overflow:hidden}
 .progress-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.progress-fill-green{height:100%;border-radius:10px;background:linear-gradient(90deg,#16a34a,#22c55e)}
+
 .no-data{text-align:center;padding:30px;color:#94a3b8;font-size:14px}
 .pay-row{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#f8fafc;border-radius:10px;margin-bottom:5px;border:1px solid #e2e8f0}
 .pay-row.paid-row{background:#d1fae5;border:1px solid #10b981}
@@ -180,23 +215,26 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 .maint-summary-value{font-size:14px;font-weight:bold;color:#475569;direction:ltr}
 .maint-add-btn{background:linear-gradient(135deg,#475569,#64748b);color:#fff;border:none;padding:10px;border-radius:10px;width:100%;cursor:pointer;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;transition:.2s}
 .maint-add-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(71,85,105,.3)}
-
-/* ✅ شاشة التحميل */
 .loading-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:#fff;transition:opacity .5s}
 .loading-screen.hidden{opacity:0;pointer-events:none}
 .loading-spinner{width:60px;height:60px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-size:18px;font-weight:bold;margin-bottom:8px}
 .loading-subtext{font-size:13px;opacity:.9}
-
-/* ✅ مؤشر قاعدة البيانات */
 .db-indicator{position:fixed;top:10px;left:10px;background:#10b981;color:#fff;padding:4px 10px;border-radius:20px;font-size:10px;z-index:50;opacity:.9;display:flex;align-items:center;gap:4px}
 .db-indicator.error{background:#ef4444}
+
+/* ✅ تعليمات التثبيت (تظهر مرة واحدة فقط) */
+.install-hint{position:fixed;bottom:90px;left:10px;right:10px;background:#fff;border:2px solid #3b82f6;border-radius:14px;padding:12px;z-index:300;box-shadow:0 4px 20px rgba(0,0,0,.2);display:none}
+.install-hint.show{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.install-hint-title{font-size:14px;font-weight:bold;color:#1e40af;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.install-hint-text{font-size:12px;color:#475569;line-height:1.5}
+.install-hint-close{position:absolute;top:8px;left:8px;background:#f1f5f9;border:none;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;color:#64748b}
 </style>
 </head>
 <body>
 
-<!-- ✅ شاشة التحميل -->
 <div class="loading-screen" id="loadingScreen">
 <div class="loading-spinner"></div>
 <div class="loading-text">🏠 جاري تحميل التطبيق...</div>
@@ -204,6 +242,18 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 </div>
 
 <div class="db-indicator" id="dbIndicator" style="display:none">💾 IndexedDB</div>
+
+<!-- ✅ تنبيه تعليمات التثبيت -->
+<div class="install-hint" id="installHint">
+<button class="install-hint-close" onclick="dismissInstallHint()">✕</button>
+<div class="install-hint-title">📱 جرّب تجربة التطبيق الكاملة!</div>
+<div class="install-hint-text">
+لإخفاء شريط المتصفح وفتح التطبيق بشاشة كاملة:<br>
+1️⃣ اضغط ⋮ (النقاط الثلاث) في Chrome<br>
+2️⃣ اختر "إضافة إلى الشاشة الرئيسية"<br>
+3️⃣ افتح التطبيق من الأيقونة الجديدة
+</div>
+</div>
 
 <div class="header">
 <h1>🏠 متابع الشقق</h1>
@@ -234,7 +284,7 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)"/>
 </div>
 <div class="search-box">
-<input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم أو رقم الشقة أو العقد أو العداد..." oninput="renderApartments(this.value)"/>
+<input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم أو رقم الشقة أو العقد أو العداد أو الجوال..." oninput="renderApartments(this.value)"/>
 </div>
 <div id="aptList"></div>
 </div>
@@ -265,6 +315,8 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 <h2 id="modalTitle">تعديل</h2>
 <label>رقم الشقة</label><input type="text" id="editNum"/>
 <label>اسم المستأجر</label><input type="text" id="editName"/>
+<label>📱 رقم جوال المستأجر</label>
+<input type="tel" id="editPhone" placeholder="مثال: 0501234567"/>
 <label>رقم العقد</label><input type="text" id="editContract"/>
 <label>⚡ رقم عداد الكهرباء</label>
 <input type="text" id="editMeter" placeholder="مثال: 30075400246"/>
@@ -350,9 +402,6 @@ body{font-family:Tahoma,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-he
 </div></div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   ✅ نظام IndexedDB الكامل
-   ═══════════════════════════════════════════════════════════════ */
 const DB_NAME='ApartmentsDB';
 const DB_VERSION=1;
 const STORE_DATA='apartments';
@@ -368,163 +417,71 @@ let editingId=null,vacatingId=null,renewingId=null,noteEditId=null,autoRenewId=n
 let maintAptId=null,maintEditIndex=-1;
 let selectedPayType=null,selectedDurMonths=12,durMode='years',isAdding=false;
 
-/* فتح قاعدة البيانات */
+function formatWhatsAppNumber(phone){
+  if(!phone)return'';
+  const clean=phone.replace(/\D/g,'');
+  if(clean.startsWith('966'))return clean;
+  if(clean.startsWith('0'))return '966'+clean.substring(1);
+  if(clean.length===9)return '966'+clean;
+  return clean;
+}
+
 function openDB(){
   return new Promise((resolve,reject)=>{
     const request=indexedDB.open(DB_NAME,DB_VERSION);
     request.onerror=()=>reject(new Error('فشل فتح قاعدة البيانات: '+request.error));
-    request.onsuccess=(e)=>{
-      db=e.target.result;
-      resolve(db);
-    };
+    request.onsuccess=(e)=>{db=e.target.result;resolve(db)};
     request.onupgradeneeded=(e)=>{
       const database=e.target.result;
-      if(!database.objectStoreNames.contains(STORE_DATA)){
-        database.createObjectStore(STORE_DATA,{keyPath:'id'});
-      }
-      if(!database.objectStoreNames.contains(STORE_ARCHIVE)){
-        database.createObjectStore(STORE_ARCHIVE,{keyPath:'_id',autoIncrement:true});
-      }
-      if(!database.objectStoreNames.contains(STORE_UNDO)){
-        database.createObjectStore(STORE_UNDO,{keyPath:'_id',autoIncrement:true});
-      }
-      if(!database.objectStoreNames.contains(STORE_META)){
-        database.createObjectStore(STORE_META,{keyPath:'key'});
-      }
+      if(!database.objectStoreNames.contains(STORE_DATA))database.createObjectStore(STORE_DATA,{keyPath:'id'});
+      if(!database.objectStoreNames.contains(STORE_ARCHIVE))database.createObjectStore(STORE_ARCHIVE,{keyPath:'_id',autoIncrement:true});
+      if(!database.objectStoreNames.contains(STORE_UNDO))database.createObjectStore(STORE_UNDO,{keyPath:'_id',autoIncrement:true});
+      if(!database.objectStoreNames.contains(STORE_META))database.createObjectStore(STORE_META,{keyPath:'key'});
     };
   });
 }
 
-/* دوال مساعدة للقراءة والكتابة */
-function dbGetAll(storeName){
-  return new Promise((resolve,reject)=>{
-    if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}
-    const tx=db.transaction([storeName],'readonly');
-    const store=tx.objectStore(storeName);
-    const request=store.getAll();
-    request.onsuccess=()=>resolve(request.result||[]);
-    request.onerror=()=>reject(request.error);
-  });
-}
+function dbGetAll(storeName){return new Promise((resolve,reject)=>{if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}const tx=db.transaction([storeName],'readonly');const store=tx.objectStore(storeName);const request=store.getAll();request.onsuccess=()=>resolve(request.result||[]);request.onerror=()=>reject(request.error)})}
+function dbClear(storeName){return new Promise((resolve,reject)=>{if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}const tx=db.transaction([storeName],'readwrite');const store=tx.objectStore(storeName);const request=store.clear();request.onsuccess=()=>resolve();request.onerror=()=>reject(request.error)})}
+function dbAddAll(storeName,items){return new Promise((resolve,reject)=>{if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}if(!items||!items.length){resolve();return}const tx=db.transaction([storeName],'readwrite');const store=tx.objectStore(storeName);items.forEach(item=>{const itemCopy={...item};if(storeName===STORE_ARCHIVE||storeName===STORE_UNDO)delete itemCopy._id;store.add(itemCopy)});tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)})}
+function dbGetMeta(key){return new Promise((resolve,reject)=>{if(!db){resolve(null);return}const tx=db.transaction([STORE_META],'readonly');const store=tx.objectStore(STORE_META);const request=store.get(key);request.onsuccess=()=>resolve(request.result?request.result.value:null);request.onerror=()=>reject(request.error)})}
+function dbSetMeta(key,value){return new Promise((resolve,reject)=>{if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}const tx=db.transaction([STORE_META],'readwrite');const store=tx.objectStore(STORE_META);const request=store.put({key,value});request.onsuccess=()=>resolve();request.onerror=()=>reject(request.error)})}
 
-function dbClear(storeName){
-  return new Promise((resolve,reject)=>{
-    if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}
-    const tx=db.transaction([storeName],'readwrite');
-    const store=tx.objectStore(storeName);
-    const request=store.clear();
-    request.onsuccess=()=>resolve();
-    request.onerror=()=>reject(request.error);
-  });
-}
-
-function dbAddAll(storeName,items){
-  return new Promise((resolve,reject)=>{
-    if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}
-    if(!items||!items.length){resolve();return}
-    const tx=db.transaction([storeName],'readwrite');
-    const store=tx.objectStore(storeName);
-    items.forEach(item=>{
-      const itemCopy={...item};
-      if(storeName===STORE_ARCHIVE||storeName===STORE_UNDO){
-        delete itemCopy._id;
-      }
-      store.add(itemCopy);
-    });
-    tx.oncomplete=()=>resolve();
-    tx.onerror=()=>reject(tx.error);
-  });
-}
-
-function dbGetMeta(key){
-  return new Promise((resolve,reject)=>{
-    if(!db){resolve(null);return}
-    const tx=db.transaction([STORE_META],'readonly');
-    const store=tx.objectStore(STORE_META);
-    const request=store.get(key);
-    request.onsuccess=()=>resolve(request.result?request.result.value:null);
-    request.onerror=()=>reject(request.error);
-  });
-}
-
-function dbSetMeta(key,value){
-  return new Promise((resolve,reject)=>{
-    if(!db){reject(new Error('قاعدة البيانات غير متاحة'));return}
-    const tx=db.transaction([STORE_META],'readwrite');
-    const store=tx.objectStore(STORE_META);
-    const request=store.put({key,value});
-    request.onsuccess=()=>resolve();
-    request.onerror=()=>reject(request.error);
-  });
-}
-
-/* الحفظ والتحميل */
-async function saveData(){
-  try{
-    await dbClear(STORE_DATA);
-    await dbAddAll(STORE_DATA,apartments);
-  }catch(err){
-    console.error('خطأ في حفظ البيانات:',err);
-    showToast('❌ خطأ في حفظ البيانات');
-  }
-}
-
-async function saveArchive(){
-  try{
-    await dbClear(STORE_ARCHIVE);
-    await dbAddAll(STORE_ARCHIVE,archive);
-  }catch(err){
-    console.error('خطأ في حفظ الأرشيف:',err);
-  }
-}
-
-async function saveUndoStack(){
-  try{
-    await dbClear(STORE_UNDO);
-    await dbAddAll(STORE_UNDO,undoStack);
-  }catch(err){
-    console.error('خطأ في حفظ سجل التراجع:',err);
-  }
-}
+async function saveData(){try{await dbClear(STORE_DATA);await dbAddAll(STORE_DATA,apartments)}catch(err){console.error('خطأ في حفظ البيانات:',err);showToast('❌ خطأ في حفظ البيانات')}}
+async function saveArchive(){try{await dbClear(STORE_ARCHIVE);await dbAddAll(STORE_ARCHIVE,archive)}catch(err){console.error('خطأ في حفظ الأرشيف:',err)}}
+async function saveUndoStack(){try{await dbClear(STORE_UNDO);await dbAddAll(STORE_UNDO,undoStack)}catch(err){console.error('خطأ في حفظ سجل التراجع:',err)}}
 
 async function loadAllData(){
   try{
     apartments=await dbGetAll(STORE_DATA);
     archive=await dbGetAll(STORE_ARCHIVE);
     undoStack=await dbGetAll(STORE_UNDO);
-    // تنظيف الـ _id من الأرشيف والـ undo
     archive=archive.map(a=>{const c={...a};delete c._id;return c});
     undoStack=undoStack.map(u=>{const c={...u};delete c._id;return c});
-    // ضمان الحقول الجديدة
     apartments.forEach(a=>{
       if(!a.yearNum)a.yearNum=a.renewalNum||1;
       if(a.meter===undefined)a.meter="";
+      if(a.phone===undefined)a.phone="";
       if(!a.maintenance)a.maintenance=[];
     });
-  }catch(err){
-    console.error('خطأ في تحميل البيانات:',err);
-    showToast('❌ خطأ في تحميل البيانات');
-  }
+  }catch(err){console.error('خطأ في تحميل البيانات:',err);showToast('❌ خطأ في تحميل البيانات')}
 }
 
-/* ✅ ترحيل البيانات من LocalStorage إلى IndexedDB (يعمل مرة واحدة) */
 async function migrateFromLocalStorage(){
   const migrated=await dbGetMeta('migrated_from_ls');
   if(migrated)return false;
-  
   try{
     const oldData=localStorage.getItem('apt_data_v17');
     const oldArchive=localStorage.getItem('apt_archive_v17');
     const oldUndo=localStorage.getItem('apt_undo_v17');
-    
     let imported=false;
-    
     if(oldData){
       const data=JSON.parse(oldData);
       if(Array.isArray(data)&&data.length){
         data.forEach(a=>{
           if(!a.yearNum)a.yearNum=a.renewalNum||1;
           if(a.meter===undefined)a.meter="";
+          if(a.phone===undefined)a.phone="";
           if(!a.maintenance)a.maintenance=[];
         });
         await dbClear(STORE_DATA);
@@ -532,7 +489,6 @@ async function migrateFromLocalStorage(){
         imported=true;
       }
     }
-    
     if(oldArchive){
       const arc=JSON.parse(oldArchive);
       if(Array.isArray(arc)&&arc.length){
@@ -541,7 +497,6 @@ async function migrateFromLocalStorage(){
         imported=true;
       }
     }
-    
     if(oldUndo){
       const und=JSON.parse(oldUndo);
       if(Array.isArray(und)&&und.length){
@@ -549,68 +504,32 @@ async function migrateFromLocalStorage(){
         await dbAddAll(STORE_UNDO,und);
       }
     }
-    
     await dbSetMeta('migrated_from_ls','done');
     return imported;
-  }catch(err){
-    console.error('خطأ في الترحيل:',err);
-    return false;
-  }
+  }catch(err){console.error('خطأ في الترحيل:',err);return false}
 }
 
-/* ✅ البيانات الافتراضية (للتجربة فقط، تُستخدم لو لم يكن هناك بيانات) */
 function getDefaultData(){return[
-{id:1,num:"1",name:"شجاع مقعد البقمي",contract:"10012023760",meter:"30075400246",start:"2025-08-26",end:"2026-08-25",rent:22002,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:2,num:"2",name:"عبدالله يحيى بخاري",contract:"10673017197",meter:"30075400219",start:"2026-05-01",end:"2027-04-30",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:3,num:"3",name:"فهد سالم الغامدي",contract:"10030854231",meter:"30075400228",start:"2025-08-01",end:"2026-07-31",rent:24000,payments:4,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:4,num:"4",name:"د. عبدالمطلب محمود",contract:"10363504443",meter:"30082909113",start:"2026-02-01",end:"2027-01-31",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:5,num:"5",name:"محمد علي الحميدي",contract:"10698966493",meter:"30082909202",start:"2025-11-10",end:"2026-11-09",rent:22000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:6,num:"6",name:"عبدالاله عوض الثقفي",contract:"10694842535",meter:"30091351356",start:"2025-06-01",end:"2026-05-31",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:7,num:"7",name:"",contract:"",meter:"30082909098",start:"",end:"",rent:0,payments:0,durationMonths:12,renewalNum:0,yearNum:0,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",vacant:true,maintenance:[]},
-{id:8,num:"8",name:"محمد عايض البقمي",contract:"10487211069",meter:"30082909187",start:"2025-08-28",end:"2026-08-27",rent:22000,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
-{id:9,num:"الحمراء/13",name:"أيمن حسن عيسى",contract:"10854195695",meter:"30108034388",start:"2026-03-19",end:"2027-03-18",rent:40002,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]}
+{id:1,num:"1",name:"شجاع مقعد البقمي",contract:"10012023760",meter:"30075400246",phone:"",start:"2025-08-26",end:"2026-08-25",rent:22002,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:2,num:"2",name:"عبدالله يحيى بخاري",contract:"10673017197",meter:"30075400219",phone:"",start:"2026-05-01",end:"2027-04-30",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:3,num:"3",name:"فهد سالم الغامدي",contract:"10030854231",meter:"30075400228",phone:"",start:"2025-08-01",end:"2026-07-31",rent:24000,payments:4,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:4,num:"4",name:"د. عبدالمطلب محمود",contract:"10363504443",meter:"30082909113",phone:"",start:"2026-02-01",end:"2027-01-31",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:5,num:"5",name:"محمد علي الحميدي",contract:"10698966493",meter:"30082909202",phone:"",start:"2025-11-10",end:"2026-11-09",rent:22000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:6,num:"6",name:"عبدالاله عوض الثقفي",contract:"10694842535",meter:"30091351356",phone:"",start:"2025-06-01",end:"2026-05-31",rent:20000,payments:1,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:7,num:"7",name:"",contract:"",meter:"30082909098",phone:"",start:"",end:"",rent:0,payments:0,durationMonths:12,renewalNum:0,yearNum:0,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",vacant:true,maintenance:[]},
+{id:8,num:"8",name:"محمد عايض البقمي",contract:"10487211069",meter:"30082909187",phone:"",start:"2025-08-28",end:"2026-08-27",rent:22000,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]},
+{id:9,num:"الحمراء/13",name:"أيمن حسن عيسى",contract:"10854195695",meter:"30108034388",phone:"",start:"2026-03-19",end:"2027-03-18",rent:40002,payments:2,durationMonths:12,renewalNum:1,yearNum:1,paid:[],notes:"",autoRenewPaid:false,autoRenewDate:"",maintenance:[]}
 ]}
 
-/* ═══════════════════════════════════════════════════════════════
-   ✅ دوال التطبيق (نفس الكود السابق مع جعلها async عند الحاجة)
-   ═══════════════════════════════════════════════════════════════ */
-
-async function pushUndo(a){
-  undoStack.push({action:a,data:JSON.parse(JSON.stringify(apartments)),archive:JSON.parse(JSON.stringify(archive)),time:new Date().toISOString()});
-  if(undoStack.length>MAX_UNDO)undoStack.shift();
-  await saveUndoStack();
-  updateUndoBtn();
-}
-
-async function undo(){
-  if(!undoStack.length)return;
-  const l=undoStack.pop();
-  apartments=l.data;
-  archive=l.archive;
-  await saveData();
-  await saveArchive();
-  await saveUndoStack();
-  updateUndoBtn();
-  renderAll();
-  showToast('↩️ تم التراجع: '+l.action);
-}
-
+async function pushUndo(a){undoStack.push({action:a,data:JSON.parse(JSON.stringify(apartments)),archive:JSON.parse(JSON.stringify(archive)),time:new Date().toISOString()});if(undoStack.length>MAX_UNDO)undoStack.shift();await saveUndoStack();updateUndoBtn()}
+async function undo(){if(!undoStack.length)return;const l=undoStack.pop();apartments=l.data;archive=l.archive;await saveData();await saveArchive();await saveUndoStack();updateUndoBtn();renderAll();showToast('↩️ تم التراجع: '+l.action)}
 function updateUndoBtn(){const b=document.getElementById('undoTopBtn'),c=document.getElementById('undoTopCount');if(undoStack.length>0){b.style.opacity='1';b.style.cursor='pointer';c.style.display='flex';c.textContent=undoStack.length}else{b.style.opacity='0.4';b.style.cursor='default';c.style.display='none'}}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('show');setTimeout(()=>t.classList.add('show'),10);setTimeout(()=>t.classList.remove('show'),2500)}
-
-async function confirmSave(){
-  if(!confirm('هل تريد حفظ جميع التغييرات نهائياً؟\n\nسيتم مسح سجل التراجع.'))return;
-  undoStack=[];
-  await saveUndoStack();
-  updateUndoBtn();
-  await saveData();
-  await saveArchive();
-  showToast('💾 تم الحفظ النهائي');
-}
+async function confirmSave(){if(!confirm('هل تريد حفظ جميع التغييرات نهائياً؟\n\nسيتم مسح سجل التراجع.'))return;undoStack=[];await saveUndoStack();updateUndoBtn();await saveData();await saveArchive();showToast('💾 تم الحفظ النهائي')}
 
 function exportData(){
   try{
-    const backup={version:'2.0-IndexedDB',exportDate:new Date().toISOString(),exportDateLocal:new Date().toLocaleString('en-US'),apartments:apartments,archive:archive,stats:{totalApartments:apartments.length,rented:apartments.filter(a=>!a.vacant).length,vacant:apartments.filter(a=>a.vacant).length,archived:archive.length}};
+    const backup={version:'2.2-IndexedDB-PWA',exportDate:new Date().toISOString(),exportDateLocal:new Date().toLocaleString('en-US'),apartments:apartments,archive:archive,stats:{totalApartments:apartments.length,rented:apartments.filter(a=>!a.vacant).length,vacant:apartments.filter(a=>a.vacant).length,archived:archive.length}};
     const jsonStr=JSON.stringify(backup,null,2);
     const blob=new Blob([jsonStr],{type:'application/json;charset=utf-8'});
     const url=URL.createObjectURL(blob);
@@ -636,10 +555,13 @@ function importData(event){
       if(!confirm(msg)){event.target.value='';return}
       await pushUndo('استيراد نسخة احتياطية');
       apartments=data.apartments;archive=data.archive||[];
-      apartments.forEach(a=>{if(!a.yearNum)a.yearNum=a.renewalNum||1;if(a.meter===undefined)a.meter="";if(!a.maintenance)a.maintenance=[]});
-      await saveData();
-      await saveArchive();
-      renderAll();
+      apartments.forEach(a=>{
+        if(!a.yearNum)a.yearNum=a.renewalNum||1;
+        if(a.meter===undefined)a.meter="";
+        if(a.phone===undefined)a.phone="";
+        if(!a.maintenance)a.maintenance=[];
+      });
+      await saveData();await saveArchive();renderAll();
       showToast(`✅ تم الاستيراد بنجاح - ${aptCount} شقة`);event.target.value='';
     }catch(err){alert('❌ فشل قراءة الملف: '+err.message);event.target.value=''}
   };
@@ -665,13 +587,7 @@ function getProgress(a){if(a.vacant||!a.start||!a.end)return 0;const s=new Date(
 function getMaintTotal(a){if(!a.maintenance||!a.maintenance.length)return 0;return a.maintenance.reduce((s,m)=>s+(parseInt(m.materials)||0)+(parseInt(m.labor)||0),0)}
 function getMaintCount(a){return (a.maintenance||[]).length}
 
-function openMaint(id){
-  maintAptId=id;
-  const a=apartments.find(x=>x.id===id);if(!a)return;
-  document.getElementById('maintTitle').textContent='🔧 سجل صيانة شقة '+a.num;
-  renderMaintList();
-  document.getElementById('maintModal').classList.add('show');
-}
+function openMaint(id){maintAptId=id;const a=apartments.find(x=>x.id===id);if(!a)return;document.getElementById('maintTitle').textContent='🔧 سجل صيانة شقة '+a.num;renderMaintList();document.getElementById('maintModal').classList.add('show')}
 function closeMaint(){document.getElementById('maintModal').classList.remove('show');maintAptId=null}
 
 function renderMaintList(){
@@ -680,80 +596,24 @@ function renderMaintList(){
   let totalMaterials=0,totalLabor=0;
   a.maintenance.forEach(m=>{totalMaterials+=parseInt(m.materials)||0;totalLabor+=parseInt(m.labor)||0});
   const grandTotal=totalMaterials+totalLabor;
-  let summary=`<div class="maint-summary">
-    <div class="maint-summary-box"><div class="maint-summary-label">🛠️ المشتريات</div><div class="maint-summary-value">${formatMoney(totalMaterials)}</div></div>
-    <div class="maint-summary-box"><div class="maint-summary-label">👷 العمالة</div><div class="maint-summary-value">${formatMoney(totalLabor)}</div></div>
-    <div class="maint-summary-box" style="background:#dbeafe;border-radius:8px"><div class="maint-summary-label" style="color:#1e40af">💰 الإجمالي</div><div class="maint-summary-value" style="color:#1e40af">${formatMoney(grandTotal)}</div></div>
-  </div>`;
+  let summary=`<div class="maint-summary"><div class="maint-summary-box"><div class="maint-summary-label">🛠️ المشتريات</div><div class="maint-summary-value">${formatMoney(totalMaterials)}</div></div><div class="maint-summary-box"><div class="maint-summary-label">👷 العمالة</div><div class="maint-summary-value">${formatMoney(totalLabor)}</div></div><div class="maint-summary-box" style="background:#dbeafe;border-radius:8px"><div class="maint-summary-label" style="color:#1e40af">💰 الإجمالي</div><div class="maint-summary-value" style="color:#1e40af">${formatMoney(grandTotal)}</div></div></div>`;
   document.getElementById('maintSummaryBox').innerHTML=summary;
   const list=document.getElementById('maintList');
   if(!a.maintenance.length){list.innerHTML='<div class="no-data">🔧 لا توجد عمليات صيانة مسجلة<br><span style="font-size:11px">اضغط على الزر أعلاه لإضافة أول عملية</span></div>';return}
   const sorted=[...a.maintenance].map((m,i)=>({...m,_idx:i})).sort((x,y)=>new Date(y.date)-new Date(x.date));
   let h='';
   sorted.forEach(m=>{
-    const mat=parseInt(m.materials)||0;
-    const lab=parseInt(m.labor)||0;
-    const total=mat+lab;
-    h+=`<div class="maint-item">
-      <div class="maint-head"><div><div class="maint-type">🔧 ${m.type}</div><div class="maint-date">📅 ${formatDate(m.date)}</div></div></div>
-      <div class="maint-costs">
-        <div class="maint-cost-box"><div class="maint-cost-label">🛠️ مشتريات</div><div class="maint-cost-value">${mat.toLocaleString('en-US')}</div></div>
-        <div class="maint-cost-box"><div class="maint-cost-label">👷 عمالة</div><div class="maint-cost-value">${lab.toLocaleString('en-US')}</div></div>
-        <div class="maint-cost-box maint-cost-total"><div class="maint-cost-label">💰 الإجمالي</div><div class="maint-cost-value">${total.toLocaleString('en-US')}</div></div>
-      </div>
-      ${m.notes?`<div class="maint-notes-text"><b>📝</b> ${m.notes}</div>`:''}
-      <div class="maint-actions">
-        <button class="btn btn-blue" onclick="editMaint(${m._idx})"><span class="btn-icon">✏️</span>تعديل</button>
-        <button class="btn btn-red" onclick="deleteMaint(${m._idx})"><span class="btn-icon">🗑️</span>حذف</button>
-      </div>
-    </div>`;
+    const mat=parseInt(m.materials)||0;const lab=parseInt(m.labor)||0;const total=mat+lab;
+    h+=`<div class="maint-item"><div class="maint-head"><div><div class="maint-type">🔧 ${m.type}</div><div class="maint-date">📅 ${formatDate(m.date)}</div></div></div><div class="maint-costs"><div class="maint-cost-box"><div class="maint-cost-label">🛠️ مشتريات</div><div class="maint-cost-value">${mat.toLocaleString('en-US')}</div></div><div class="maint-cost-box"><div class="maint-cost-label">👷 عمالة</div><div class="maint-cost-value">${lab.toLocaleString('en-US')}</div></div><div class="maint-cost-box maint-cost-total"><div class="maint-cost-label">💰 الإجمالي</div><div class="maint-cost-value">${total.toLocaleString('en-US')}</div></div></div>${m.notes?`<div class="maint-notes-text"><b>📝</b> ${m.notes}</div>`:''}<div class="maint-actions"><button class="btn btn-blue" onclick="editMaint(${m._idx})"><span class="btn-icon">✏️</span>تعديل</button><button class="btn btn-red" onclick="deleteMaint(${m._idx})"><span class="btn-icon">🗑️</span>حذف</button></div></div>`;
   });
   list.innerHTML=h;
 }
 
-function openMaintAdd(){
-  maintEditIndex=-1;
-  document.getElementById('maintEditTitle').textContent='➕ إضافة عملية صيانة';
-  document.getElementById('maintType').value='';
-  document.getElementById('maintDate').value=new Date().toISOString().split('T')[0];
-  document.getElementById('maintMaterials').value='';
-  document.getElementById('maintLabor').value='';
-  document.getElementById('maintNotes').value='';
-  updateMaintTotal();
-  document.getElementById('maintEditModal').classList.add('show');
-}
-
-function editMaint(idx){
-  const a=apartments.find(x=>x.id===maintAptId);if(!a||!a.maintenance[idx])return;
-  const m=a.maintenance[idx];
-  maintEditIndex=idx;
-  document.getElementById('maintEditTitle').textContent='✏️ تعديل صيانة';
-  document.getElementById('maintType').value=m.type||'';
-  document.getElementById('maintDate').value=m.date||'';
-  document.getElementById('maintMaterials').value=m.materials||'';
-  document.getElementById('maintLabor').value=m.labor||'';
-  document.getElementById('maintNotes').value=m.notes||'';
-  updateMaintTotal();
-  document.getElementById('maintEditModal').classList.add('show');
-}
-
-async function deleteMaint(idx){
-  const a=apartments.find(x=>x.id===maintAptId);if(!a||!a.maintenance[idx])return;
-  if(!confirm('هل أنت متأكد من حذف عملية الصيانة هذه؟'))return;
-  await pushUndo('حذف صيانة - شقة '+a.num);
-  a.maintenance.splice(idx,1);
-  await saveData();
-  renderMaintList();
-  showToast('🗑️ تم حذف عملية الصيانة');
-}
-
+function openMaintAdd(){maintEditIndex=-1;document.getElementById('maintEditTitle').textContent='➕ إضافة عملية صيانة';document.getElementById('maintType').value='';document.getElementById('maintDate').value=new Date().toISOString().split('T')[0];document.getElementById('maintMaterials').value='';document.getElementById('maintLabor').value='';document.getElementById('maintNotes').value='';updateMaintTotal();document.getElementById('maintEditModal').classList.add('show')}
+function editMaint(idx){const a=apartments.find(x=>x.id===maintAptId);if(!a||!a.maintenance[idx])return;const m=a.maintenance[idx];maintEditIndex=idx;document.getElementById('maintEditTitle').textContent='✏️ تعديل صيانة';document.getElementById('maintType').value=m.type||'';document.getElementById('maintDate').value=m.date||'';document.getElementById('maintMaterials').value=m.materials||'';document.getElementById('maintLabor').value=m.labor||'';document.getElementById('maintNotes').value=m.notes||'';updateMaintTotal();document.getElementById('maintEditModal').classList.add('show')}
+async function deleteMaint(idx){const a=apartments.find(x=>x.id===maintAptId);if(!a||!a.maintenance[idx])return;if(!confirm('هل أنت متأكد من حذف عملية الصيانة هذه؟'))return;await pushUndo('حذف صيانة - شقة '+a.num);a.maintenance.splice(idx,1);await saveData();renderMaintList();showToast('🗑️ تم حذف عملية الصيانة')}
 function closeMaintEdit(){document.getElementById('maintEditModal').classList.remove('show');maintEditIndex=-1}
-
-function updateMaintTotal(){
-  const mat=parseInt(document.getElementById('maintMaterials').value)||0;
-  const lab=parseInt(document.getElementById('maintLabor').value)||0;
-  document.getElementById('maintTotalPreview').textContent=formatMoney(mat+lab);
-}
+function updateMaintTotal(){const mat=parseInt(document.getElementById('maintMaterials').value)||0;const lab=parseInt(document.getElementById('maintLabor').value)||0;document.getElementById('maintTotalPreview').textContent=formatMoney(mat+lab)}
 
 async function saveMaint(){
   const a=apartments.find(x=>x.id===maintAptId);if(!a)return;
@@ -770,10 +630,7 @@ async function saveMaint(){
   const maintData={type,date,materials,labor,notes,addedOn:new Date().toISOString()};
   if(maintEditIndex>=0){a.maintenance[maintEditIndex]=maintData;showToast('✅ تم تعديل عملية الصيانة')}
   else{a.maintenance.push(maintData);showToast('✅ تم إضافة عملية الصيانة')}
-  await saveData();
-  closeMaintEdit();
-  renderMaintList();
-  renderAll();
+  await saveData();closeMaintEdit();renderMaintList();renderAll();
 }
 
 function renderStats(){const r=apartments.filter(a=>!a.vacant),v=apartments.filter(a=>a.vacant);const late=apartments.reduce((s,a)=>{if(a.vacant)return s;return s+getPaymentDates(a).filter((d,i)=>d.date<today&&!(a.paid||[]).includes(i)).length},0);document.getElementById('statsBar').innerHTML=`<div class="stat"><div class="num">${apartments.length}</div><div class="lbl">إجمالي</div></div><div class="stat"><div class="num" style="color:#16a34a">${r.length}</div><div class="lbl">مؤجرة</div></div><div class="stat"><div class="num" style="color:#d97706">${v.length}</div><div class="lbl">شاغرة</div></div><div class="stat"><div class="num" style="color:#dc2626">${late}</div><div class="lbl">متأخرة</div></div>`}
@@ -791,6 +648,11 @@ function openView(id){
   if(!a.vacant){h+=`<div class="view-row"><span class="view-label">رقم العقد</span><span class="view-value num">${a.contract||'-'}</span></div>`}
   h+=`<div class="view-row"><span class="view-label">⚡ عداد الكهرباء</span><span class="view-value num">${(a.meter&&a.meter.trim())?a.meter:'لم يُسجل'}</span></div>`;
   if(!a.vacant){
+    h+=`<div class="view-row"><span class="view-label">📱 جوال المستأجر</span><span class="view-value num">${(a.phone&&a.phone.trim())?a.phone:'لم يُسجل'}</span></div>`;
+    if(a.phone&&a.phone.trim()){
+      const waNum=formatWhatsAppNumber(a.phone);
+      h+=`<div style="margin:10px 0"><a href="https://wa.me/${waNum}" target="_blank" class="contact-btn contact-wa" style="display:flex;width:100%">💬 مراسلة واتساب</a></div>`;
+    }
     h+=`<div class="view-row"><span class="view-label">البداية</span><span class="view-value num">${formatDate(a.start)}</span></div>`;
     h+=`<div class="view-row"><span class="view-label">النهاية</span><span class="view-value num">${formatDate(a.end)}</span></div>`;
     h+=`<div class="view-row"><span class="view-label">المدة</span><span class="view-value">${getDurationLabel(dm)}</span></div>`;
@@ -853,37 +715,19 @@ function togglePayFromView(id,idx){togglePay(id,idx);setTimeout(()=>openView(id)
 
 function openNote(id){noteEditId=id;const a=apartments.find(x=>x.id===id);document.getElementById('noteTitle').textContent='📝 ملاحظات شقة '+a.num;document.getElementById('noteText').value=a.notes||'';document.getElementById('noteModal').classList.add('show')}
 function closeNote(){document.getElementById('noteModal').classList.remove('show');noteEditId=null}
-async function saveNote(){
-  const a=apartments.find(x=>x.id===noteEditId);if(!a)return;
-  await pushUndo('ملاحظات شقة '+a.num);
-  a.notes=document.getElementById('noteText').value;
-  await saveData();
-  closeNote();renderAll();showToast('📝 تم حفظ الملاحظات');
-}
+async function saveNote(){const a=apartments.find(x=>x.id===noteEditId);if(!a)return;await pushUndo('ملاحظات شقة '+a.num);a.notes=document.getElementById('noteText').value;await saveData();closeNote();renderAll();showToast('📝 تم حفظ الملاحظات')}
 
 function openAutoRenew(id){autoRenewId=id;const a=apartments.find(x=>x.id===id);if(!a)return;document.getElementById('autoRenewTitle').textContent='🔄 التجديد التلقائي - شقة '+a.num;let h=`<div class="auto-renew-box"><div class="auto-renew-toggle ${a.autoRenewPaid?'paid':'unpaid'}" onclick="toggleAutoRenew(${a.id})"><div class="auto-renew-check ${a.autoRenewPaid?'paid':'unpaid'}">${a.autoRenewPaid?'✓':'✗'}</div><div class="auto-renew-text ${a.autoRenewPaid?'paid':'unpaid'}">${a.autoRenewPaid?'تم دفع وحجز مبلغ التجديد ✅':'لم يتم دفع مبلغ التجديد بعد'}</div></div>${a.autoRenewPaid?`<div style="margin-top:10px"><label style="font-size:13px;color:#64748b;margin-bottom:4px;display:block">تاريخ الاعتماد</label><input type="date" value="${a.autoRenewDate||''}" onchange="saveAutoRenewDate(${a.id},this.value)" style="width:100%;padding:10px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#1e293b;font-size:14px;direction:ltr;text-align:right"/></div>`:''}</div>`;document.getElementById('autoRenewContent').innerHTML=h;document.getElementById('autoRenewModal').classList.add('show')}
 function closeAutoRenew(){document.getElementById('autoRenewModal').classList.remove('show');autoRenewId=null}
-async function toggleAutoRenew(id){
-  const a=apartments.find(x=>x.id===id);if(!a)return;
-  await pushUndo('تجديد تلقائي شقة '+a.num);
-  a.autoRenewPaid=!a.autoRenewPaid;
-  if(!a.autoRenewPaid)a.autoRenewDate='';
-  await saveData();
-  openAutoRenew(id);renderAll();showToast(a.autoRenewPaid?'✅ تم تسجيل دفع التجديد':'↩️ تم إلغاء دفع التجديد');
-}
-async function saveAutoRenewDate(id,val){
-  const a=apartments.find(x=>x.id===id);if(!a)return;
-  a.autoRenewDate=val;
-  await saveData();
-  renderAll();showToast('📅 تم حفظ تاريخ الاعتماد');
-}
+async function toggleAutoRenew(id){const a=apartments.find(x=>x.id===id);if(!a)return;await pushUndo('تجديد تلقائي شقة '+a.num);a.autoRenewPaid=!a.autoRenewPaid;if(!a.autoRenewPaid)a.autoRenewDate='';await saveData();openAutoRenew(id);renderAll();showToast(a.autoRenewPaid?'✅ تم تسجيل دفع التجديد':'↩️ تم إلغاء دفع التجديد')}
+async function saveAutoRenewDate(id,val){const a=apartments.find(x=>x.id===id);if(!a)return;a.autoRenewDate=val;await saveData();renderAll();showToast('📅 تم حفظ تاريخ الاعتماد')}
 
 function renderApartments(filter=''){
   const list=document.getElementById('aptList');
   let f=apartments;
   if(filter){
     const q=filter.trim().toLowerCase();
-    f=apartments.filter(a=>(a.name||'').toLowerCase().includes(q)||(a.num||'').toLowerCase().includes(q)||(a.contract||'').toLowerCase().includes(q)||(a.meter||'').toLowerCase().includes(q));
+    f=apartments.filter(a=>(a.name||'').toLowerCase().includes(q)||(a.num||'').toLowerCase().includes(q)||(a.contract||'').toLowerCase().includes(q)||(a.meter||'').toLowerCase().includes(q)||(a.phone||'').toLowerCase().includes(q));
   }
   if(!f.length){list.innerHTML='<div class="no-data">🔍 لا توجد نتائج مطابقة للبحث</div>';return}
   let h='';
@@ -894,7 +738,7 @@ function renderApartments(filter=''){
     const yearLabel=(!a.vacant&&a.yearNum>1)?` <span class="year-badge">السنة ${getYearLabel(a.yearNum)}</span>`:'';
     h+=`<div class="apt ${st.type}"><div class="apt-head"><div>${rl}<span class="apt-num">شقة ${a.num}</span></div><div class="badge ${st.cls}">${st.text}${yearLabel}</div></div><div class="apt-name">${a.vacant?"🔓 شاغرة":a.name}</div>`;
     if(!a.vacant){
-      h+=`<div class="apt-info"><div>💰 <span class="ltr">${formatMoney(a.rent)}</span></div><div>📅 <span class="ltr">${rem} يوم</span></div><div>📄 <span class="ltr">${a.contract}</span></div><div>🗓️ <span class="ltr">${formatDate(a.end)}</span></div><div>💳 <span>${getPayTypeName(a.payments)}</span></div><div>📆 <span>${getDurationLabel(dm)}</span></div><div>⚡ <span class="ltr">${(a.meter&&a.meter.trim())?a.meter:'لم يُسجل'}</span></div><div>🔢 <span>عداد الكهرباء</span></div></div>`;
+      h+=`<div class="apt-info"><div>💰 <span class="ltr">${formatMoney(a.rent)}</span></div><div>📅 <span class="ltr">${rem} يوم</span></div><div>📄 <span class="ltr">${a.contract}</span></div><div>🗓️ <span class="ltr">${formatDate(a.end)}</span></div><div>💳 <span>${getPayTypeName(a.payments)}</span></div><div>📆 <span>${getDurationLabel(dm)}</span></div><div>⚡ <span class="ltr">${(a.meter&&a.meter.trim())?a.meter:'لم يُسجل'}</span></div><div>🔢 <span>عداد الكهرباء</span></div><div>📱 <span class="ltr">${(a.phone&&a.phone.trim())?a.phone:'لم يُسجل'}</span></div><div>📞 <span>جوال المستأجر</span></div></div>`;
       if(a.autoRenewPaid){h+=`<div class="auto-renew-mini">✅ تم حجز مبلغ التجديد${a.autoRenewDate?' - '+formatDate(a.autoRenewDate):''}</div>`}
     }
     if(a.notes){h+=`<div class="note-preview"><b>📝</b> ${a.notes.substring(0,80)}${a.notes.length>80?'...':''}</div>`}
@@ -914,15 +758,7 @@ function renderApartments(filter=''){
   list.innerHTML=h;
 }
 
-async function togglePay(id,idx){
-  const a=apartments.find(x=>x.id===id);if(!a)return;
-  await pushUndo('تغيير دفعة - شقة '+a.num);
-  if(!a.paid)a.paid=[];
-  const i=a.paid.indexOf(idx);
-  if(i>=0)a.paid.splice(i,1);else a.paid.push(idx);
-  await saveData();
-  renderAll();showToast(a.paid.includes(idx)?'✅ تم تسجيل الدفعة':'↩️ تم إلغاء الدفعة');
-}
+async function togglePay(id,idx){const a=apartments.find(x=>x.id===id);if(!a)return;await pushUndo('تغيير دفعة - شقة '+a.num);if(!a.paid)a.paid=[];const i=a.paid.indexOf(idx);if(i>=0)a.paid.splice(i,1);else a.paid.push(idx);await saveData();renderAll();showToast(a.paid.includes(idx)?'✅ تم تسجيل الدفعة':'↩️ تم إلغاء الدفعة')}
 
 function openSchedule(id){const a=apartments.find(x=>x.id===id);if(!a)return;document.getElementById('scheduleTitle').textContent='📋 دفعات شقة '+a.num;const pds=getPaymentDates(a);let h='';pds.forEach((p,i)=>{const isPaid=(a.paid||[]).includes(i),isLate=!isPaid&&p.date<today,diff=daysBetween(today,p.date),isNear=!isPaid&&!isLate&&diff<=30;const cls=isPaid?'paid-row':(isLate?'late-row':(isNear?'near-row':''));const dl=getDaysLabel(diff);const status=isPaid?'✅ مدفوع':`<span style="color:${dl.color}">${dl.text}</span>`;h+=`<div class="pay-row ${cls}" onclick="togglePay(${a.id},${i});setTimeout(()=>openSchedule(${a.id}),100)" style="cursor:pointer"><div><div style="font-weight:bold">دفعة ${i+1}</div><div style="font-size:11px;color:#64748b;direction:ltr;text-align:right">${formatDateFull(p.date.toISOString().split('T')[0])}</div></div><div style="text-align:left"><div style="font-weight:bold;direction:ltr">${formatMoney(p.amount)}</div><div class="pay-status">${status}</div></div></div>`});h+=`<div class="color-legend" style="margin-top:12px"><div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>مدفوع</div><div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>متأخر</div><div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>قريبة</div><div class="legend-item"><div class="legend-dot" style="background:#cbd5e1"></div>بعيدة</div></div>`;document.getElementById('scheduleContent').innerHTML=h;document.getElementById('scheduleModal').classList.add('show')}
 function closeSchedule(){document.getElementById('scheduleModal').classList.remove('show')}
@@ -934,7 +770,7 @@ async function confirmRenew(){
   const a=apartments.find(x=>x.id===renewingId);if(!a)return;
   const dm=a.durationMonths||12;
   await pushUndo('تجديد شقة '+a.num);
-  archive.push({num:a.num,name:a.name,contract:a.contract,meter:a.meter||"",start:a.start,end:a.end,rent:a.rent,payments:a.payments,durationMonths:dm,renewalNum:a.renewalNum||1,yearNum:a.yearNum||1,paid:[...(a.paid||[])],notes:a.notes,maintenance:[],archivedOn:today.toISOString().split('T')[0],reason:'تجديد'});
+  archive.push({num:a.num,name:a.name,contract:a.contract,meter:a.meter||"",phone:a.phone||"",start:a.start,end:a.end,rent:a.rent,payments:a.payments,durationMonths:dm,renewalNum:a.renewalNum||1,yearNum:a.yearNum||1,paid:[...(a.paid||[])],notes:a.notes,maintenance:[],archivedOn:today.toISOString().split('T')[0],reason:'تجديد'});
   await saveArchive();
   const ns=addDays(new Date(a.end),1);
   a.start=ns.toISOString().split('T')[0];
@@ -978,11 +814,44 @@ function renderContractCard(x,type){
   return `<div class="contract-item ${type}"><div class="contract-head"><div><div class="contract-name">${a.name} ${yearLabel}</div><div class="contract-apt">🏠 شقة ${a.num} | 📄 <span style="direction:ltr">${a.contract||'-'}</span></div><div class="contract-days-badge" style="background:${badgeBg};color:${badgeColor};direction:ltr">${badgeText}</div></div><div style="text-align:left"><button class="btn btn-purple" style="font-size:11px;padding:6px 10px" onclick="openView(${a.id})">📂 عرض</button>${renewBtn}</div></div><div class="contract-details"><div>البداية: <span style="direction:ltr">${formatDate(a.start)}</span></div><div>النهاية: <span style="direction:ltr">${formatDate(a.end)}</span></div><div>المدة: <span>${getDurationLabel(dm)}</span></div><div>الإيجار: <span style="direction:ltr">${formatMoney(a.rent)}</span></div></div></div>`;
 }
 
+/* ✅ كرت الملخص المحسّن لعرض الدفعات بشكل احترافي */
 function renderSummary(){
-  const r=apartments.filter(a=>!a.vacant),ti=r.reduce((s,a)=>s+Math.round(a.rent*((a.durationMonths||12)/12)),0),co=r.reduce((s,a)=>s+getPaymentDates(a).filter((p,i)=>(a.paid||[]).includes(i)).reduce((ss,p)=>ss+p.amount,0),0),occ=apartments.length?Math.round((r.length/apartments.length)*100):0,tp=r.reduce((s,a)=>s+(a.paid||[]).length,0),tps=r.reduce((s,a)=>s+getTotalPayments(a),0);
+  const r=apartments.filter(a=>!a.vacant);
+  const ti=r.reduce((s,a)=>s+Math.round(a.rent*((a.durationMonths||12)/12)),0);
+  const co=r.reduce((s,a)=>s+getPaymentDates(a).filter((p,i)=>(a.paid||[]).includes(i)).reduce((ss,p)=>ss+p.amount,0),0);
+  const occ=apartments.length?Math.round((r.length/apartments.length)*100):0;
+  const tp=r.reduce((s,a)=>s+(a.paid||[]).length,0);
+  const tps=r.reduce((s,a)=>s+getTotalPayments(a),0);
+  const paymentPercent=tps>0?Math.round((tp/tps)*100):0;
   const totalMaint=apartments.reduce((s,a)=>s+getMaintTotal(a),0);
   const totalMaintCount=apartments.reduce((s,a)=>s+getMaintCount(a),0);
-  document.getElementById('summaryContent').innerHTML=`<div class="sum-card"><div class="sum-title">💰 إجمالي العقود</div><div class="sum-value">${formatMoney(ti)}</div></div><div class="sum-card"><div class="sum-title">✅ المحصّل</div><div class="sum-value" style="color:#16a34a">${formatMoney(co)}</div></div><div class="sum-card"><div class="sum-title">⏳ المتبقي</div><div class="sum-value" style="color:#ea580c">${formatMoney(ti-co)}</div></div><div class="sum-card"><div class="sum-title">🏠 الإشغال</div><div class="sum-value">${occ}%</div></div><div class="sum-card"><div class="sum-title">📄 المسددة</div><div class="sum-value">${tp} من ${tps}</div></div><div class="sum-card"><div class="sum-title">🔧 إجمالي الصيانة</div><div class="sum-value" style="color:#475569">${formatMoney(totalMaint)}</div><div style="font-size:11px;color:#64748b;margin-top:4px;direction:ltr">${totalMaintCount} عملية صيانة</div></div><div class="sum-card"><div class="sum-title">📁 المؤرشفة</div><div class="sum-value">${archive.length}</div></div><div class="backup-info"><b>💾 قاعدة البيانات:</b> IndexedDB (أداء عالي وحجم كبير)<br><b>💡 نصيحة:</b> قم بتصدير نسخة احتياطية بشكل دوري.</div>`;
+  
+  document.getElementById('summaryContent').innerHTML=`
+    <div class="sum-card"><div class="sum-title">💰 إجمالي العقود</div><div class="sum-value">${formatMoney(ti)}</div></div>
+    <div class="sum-card"><div class="sum-title">✅ المحصّل</div><div class="sum-value" style="color:#16a34a">${formatMoney(co)}</div></div>
+    <div class="sum-card"><div class="sum-title">⏳ المتبقي</div><div class="sum-value" style="color:#ea580c">${formatMoney(ti-co)}</div></div>
+    <div class="sum-card"><div class="sum-title">🏠 الإشغال</div><div class="sum-value">${occ}%</div></div>
+    
+    <div class="sum-card">
+      <div class="sum-title">📄 الدفعات المسددة</div>
+      <div class="sum-ratio">
+        <span class="sum-ratio-current">${tp}</span>
+        <span class="sum-ratio-divider">/</span>
+        <span class="sum-ratio-total">${tps}</span>
+        <span class="sum-ratio-percent">${paymentPercent}%</span>
+      </div>
+      <div class="progress-bar" style="margin-top:10px"><div class="progress-fill-green" style="width:${paymentPercent}%"></div></div>
+    </div>
+    
+    <div class="sum-card"><div class="sum-title">🔧 إجمالي الصيانة</div><div class="sum-value" style="color:#475569">${formatMoney(totalMaint)}</div><div style="font-size:11px;color:#64748b;margin-top:4px;direction:ltr">${totalMaintCount} عملية صيانة</div></div>
+    <div class="sum-card"><div class="sum-title">📁 المؤرشفة</div><div class="sum-value">${archive.length}</div></div>
+    
+    <div class="backup-info">
+      <b>💾 قاعدة البيانات:</b> IndexedDB (أداء عالي وحجم كبير)<br>
+      <b>📱 PWA:</b> يدعم التثبيت كتطبيق مستقل<br>
+      <b>💡 نصيحة:</b> قم بتصدير نسخة احتياطية بشكل دوري.
+    </div>
+  `;
 }
 
 function renderAlerts(){const list=document.getElementById('alertsList');let h='';apartments.forEach(a=>{if(a.vacant){h+=`<div class="due-item" style="border-right:4px solid #f59e0b"><div style="font-size:24px">🔓</div><div>شقة <b>${a.num}</b> شاغرة</div></div>`;return}const diff=daysBetween(today,new Date(a.end));if(diff<0)h+=`<div class="due-item" style="border-right:4px solid #ef4444"><div style="font-size:24px">🔴</div><div>عقد <b>${a.name}</b> (شقة ${a.num}) منتهي منذ <span style="direction:ltr">${Math.abs(diff)}</span> يوم</div></div>`;else if(diff<=60)h+=`<div class="due-item" style="border-right:4px solid #f97316"><div style="font-size:24px">🟠</div><div>عقد <b>${a.name}</b> (شقة ${a.num}) ينتهي خلال <b style="direction:ltr">${diff}</b> يوم</div></div>`;getPaymentDates(a).forEach((p,i)=>{if(!(a.paid||[]).includes(i)&&p.date<today)h+=`<div class="due-item" style="border-right:4px solid #ef4444"><div style="font-size:24px">💸</div><div>دفعة متأخرة: <b>${a.name}</b> (شقة ${a.num}) - دفعة ${i+1} بقيمة <span style="direction:ltr">${formatMoney(p.amount)}</span></div></div>`})});if(!h)h='<div class="no-data">✅ لا توجد تنبيهات</div>';list.innerHTML=h}
@@ -995,7 +864,7 @@ function renderArchive(){
     const reason=a.reason==='تجديد'?'🔄 تجديد':'🔓 إخلاء',dm=a.durationMonths||12;
     const maintCount=(a.maintenance||[]).length;
     const maintTotal=(a.maintenance||[]).reduce((s,m)=>s+(parseInt(m.materials)||0)+(parseInt(m.labor)||0),0);
-    h+=`<div class="archive-item"><div><div style="font-size:15px;font-weight:bold">${a.name} ${a.yearNum>1?'<span class="renewal-badge">السنة '+getYearLabel(a.yearNum)+'</span>':''}</div><div style="font-size:12px;color:#64748b">شقة ${a.num} | <span style="direction:ltr">${a.contract||'-'}</span></div><div style="font-size:12px;color:#64748b;direction:ltr;text-align:right">${formatDate(a.start)} → ${formatDate(a.end)} | ${getDurationLabel(dm)}</div><div style="font-size:12px;color:#64748b"><span style="direction:ltr">${formatMoney(a.rent)}</span> | ${getPayTypeName(a.payments)}</div>${maintCount>0?`<div style="font-size:11px;color:#475569;margin-top:4px;padding:4px 8px;background:#f1f5f9;border-radius:6px;display:inline-block">🔧 صيانة: ${maintCount} عملية - ${formatMoney(maintTotal)}</div>`:''}<div class="archive-date">${reason} | <span style="direction:ltr">${formatDate(a.archivedOn)}</span></div></div></div>`;
+    h+=`<div class="archive-item"><div><div style="font-size:15px;font-weight:bold">${a.name} ${a.yearNum>1?'<span class="renewal-badge">السنة '+getYearLabel(a.yearNum)+'</span>':''}</div><div style="font-size:12px;color:#64748b">شقة ${a.num} | <span style="direction:ltr">${a.contract||'-'}</span></div>${a.phone?`<div style="font-size:12px;color:#64748b">📱 <span style="direction:ltr">${a.phone}</span></div>`:''}<div style="font-size:12px;color:#64748b;direction:ltr;text-align:right">${formatDate(a.start)} → ${formatDate(a.end)} | ${getDurationLabel(dm)}</div><div style="font-size:12px;color:#64748b"><span style="direction:ltr">${formatMoney(a.rent)}</span> | ${getPayTypeName(a.payments)}</div>${maintCount>0?`<div style="font-size:11px;color:#475569;margin-top:4px;padding:4px 8px;background:#f1f5f9;border-radius:6px;display:inline-block">🔧 صيانة: ${maintCount} عملية - ${formatMoney(maintTotal)}</div>`:''}<div class="archive-date">${reason} | <span style="direction:ltr">${formatDate(a.archivedOn)}</span></div></div></div>`;
   });
   list.innerHTML=h;
 }
@@ -1004,9 +873,9 @@ function showTab(tab){document.querySelectorAll('.tab').forEach(t=>t.classList.r
 function selectDuration(val,el){document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));if(el)el.classList.add('selected');if(val==='months'){durMode='months';selectedDurMonths=0;document.getElementById('monthsInput').style.display='block'}else{durMode='years';selectedDurMonths=val*12;document.getElementById('monthsInput').style.display='none'}updatePreview()}
 function getCurrentDurMonths(){if(durMode==='months')return parseInt(document.getElementById('editMonths').value)||0;return selectedDurMonths||12}
 
-function openAdd(){isAdding=true;editingId=null;selectedPayType=null;selectedDurMonths=12;durMode='years';document.getElementById('modalTitle').textContent='➕ إضافة شقة';document.getElementById('editNum').value='';document.getElementById('editName').value='';document.getElementById('editContract').value='';document.getElementById('editMeter').value='';document.getElementById('editStart').value='';document.getElementById('editRent').value='';document.getElementById('editYearNum').value='1';document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('selected'));document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(b.dataset.dur==='1')b.classList.add('selected')});document.getElementById('monthsInput').style.display='none';document.getElementById('previewBox').style.display='none';document.getElementById('editModal').classList.add('show')}
+function openAdd(){isAdding=true;editingId=null;selectedPayType=null;selectedDurMonths=12;durMode='years';document.getElementById('modalTitle').textContent='➕ إضافة شقة';document.getElementById('editNum').value='';document.getElementById('editName').value='';document.getElementById('editPhone').value='';document.getElementById('editContract').value='';document.getElementById('editMeter').value='';document.getElementById('editStart').value='';document.getElementById('editRent').value='';document.getElementById('editYearNum').value='1';document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('selected'));document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(b.dataset.dur==='1')b.classList.add('selected')});document.getElementById('monthsInput').style.display='none';document.getElementById('previewBox').style.display='none';document.getElementById('editModal').classList.add('show')}
 
-function openEdit(id){isAdding=false;editingId=id;const a=apartments.find(x=>x.id===id),dm=a.durationMonths||12;document.getElementById('modalTitle').textContent=a.vacant?'➕ تأجير شقة '+a.num:'✏️ تعديل شقة '+a.num;document.getElementById('editNum').value=a.num;document.getElementById('editName').value=a.name||'';document.getElementById('editContract').value=a.contract||'';document.getElementById('editMeter').value=a.meter||'';document.getElementById('editStart').value=a.start||'';document.getElementById('editRent').value=a.rent||'';document.getElementById('editYearNum').value=a.yearNum||1;selectedPayType=a.payments||null;if(dm>=12&&dm%12===0){durMode='years';selectedDurMonths=dm;document.getElementById('monthsInput').style.display='none';document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(b.dataset.dur===String(dm/12))b.classList.add('selected')})}else{durMode='months';selectedDurMonths=dm;document.getElementById('monthsInput').style.display='block';document.getElementById('editMonths').value=dm;document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(!b.dataset.dur)b.classList.add('selected')})}document.querySelectorAll('.type-btn').forEach(b=>{b.classList.remove('selected');if(parseInt(b.dataset.type)===selectedPayType)b.classList.add('selected')});updatePreview();document.getElementById('editModal').classList.add('show')}
+function openEdit(id){isAdding=false;editingId=id;const a=apartments.find(x=>x.id===id),dm=a.durationMonths||12;document.getElementById('modalTitle').textContent=a.vacant?'➕ تأجير شقة '+a.num:'✏️ تعديل شقة '+a.num;document.getElementById('editNum').value=a.num;document.getElementById('editName').value=a.name||'';document.getElementById('editPhone').value=a.phone||'';document.getElementById('editContract').value=a.contract||'';document.getElementById('editMeter').value=a.meter||'';document.getElementById('editStart').value=a.start||'';document.getElementById('editRent').value=a.rent||'';document.getElementById('editYearNum').value=a.yearNum||1;selectedPayType=a.payments||null;if(dm>=12&&dm%12===0){durMode='years';selectedDurMonths=dm;document.getElementById('monthsInput').style.display='none';document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(b.dataset.dur===String(dm/12))b.classList.add('selected')})}else{durMode='months';selectedDurMonths=dm;document.getElementById('monthsInput').style.display='block';document.getElementById('editMonths').value=dm;document.querySelectorAll('.dur-btn').forEach(b=>{b.classList.remove('selected');if(!b.dataset.dur)b.classList.add('selected')})}document.querySelectorAll('.type-btn').forEach(b=>{b.classList.remove('selected');if(parseInt(b.dataset.type)===selectedPayType)b.classList.add('selected')});updatePreview();document.getElementById('editModal').classList.add('show')}
 
 function selectPayType(t){selectedPayType=t;document.querySelectorAll('.type-btn').forEach(b=>{b.classList.remove('selected');if(parseInt(b.dataset.type)===t)b.classList.add('selected')});updatePreview()}
 
@@ -1015,25 +884,34 @@ function updatePreview(){const sv=document.getElementById('editStart').value,rv=
 function closeModal(){document.getElementById('editModal').classList.remove('show');editingId=null;isAdding=false}
 
 async function saveEdit(){
-  const num=document.getElementById('editNum').value.trim(),name=document.getElementById('editName').value.trim(),contract=document.getElementById('editContract').value.trim(),meter=document.getElementById('editMeter').value.trim(),start=document.getElementById('editStart').value,rent=parseInt(document.getElementById('editRent').value)||0,dm=getCurrentDurMonths();
+  const num=document.getElementById('editNum').value.trim();
+  const name=document.getElementById('editName').value.trim();
+  const phone=document.getElementById('editPhone').value.trim();
+  const contract=document.getElementById('editContract').value.trim();
+  const meter=document.getElementById('editMeter').value.trim();
+  const start=document.getElementById('editStart').value;
+  const rent=parseInt(document.getElementById('editRent').value)||0;
+  const dm=getCurrentDurMonths();
   const yearNum=parseInt(document.getElementById('editYearNum').value)||1;
   if(!num){alert('أدخل رقم الشقة');return}
   if(!dm){alert('حدد مدة العقد');return}
   await pushUndo(isAdding?'إضافة شقة '+num:'تعديل شقة '+num);
   if(isAdding){
     const nid=apartments.length>0?Math.max(...apartments.map(a=>a.id))+1:1;
-    apartments.push({id:nid,num,name,contract,meter,start,end:start?calcEndDate(start,dm):'',rent,payments:selectedPayType||1,durationMonths:dm,renewalNum:1,yearNum:yearNum,paid:[],notes:'',autoRenewPaid:false,autoRenewDate:'',vacant:!name,maintenance:[]});
+    apartments.push({id:nid,num,name,contract,meter,phone,start,end:start?calcEndDate(start,dm):'',rent,payments:selectedPayType||1,durationMonths:dm,renewalNum:1,yearNum:yearNum,paid:[],notes:'',autoRenewPaid:false,autoRenewDate:'',vacant:!name,maintenance:[]});
     showToast('✅ تمت الإضافة');
   }else{
     const a=apartments.find(x=>x.id===editingId);if(!a)return;
     const op=a.payments,od=a.durationMonths;
-    a.num=num;a.name=name;a.contract=contract;a.meter=meter;a.start=start;a.durationMonths=dm;a.end=start?calcEndDate(start,dm):'';a.rent=rent;a.yearNum=yearNum;
+    a.num=num;a.name=name;a.phone=phone;a.contract=contract;a.meter=meter;a.start=start;a.durationMonths=dm;a.end=start?calcEndDate(start,dm):'';a.rent=rent;a.yearNum=yearNum;
     if(selectedPayType&&(selectedPayType!==op||dm!==od)){a.paid=[];a.payments=selectedPayType}else if(selectedPayType)a.payments=selectedPayType;
-    a.vacant=!name;if(!a.renewalNum)a.renewalNum=1;if(!a.notes)a.notes='';if(!a.maintenance)a.maintenance=[];
+    a.vacant=!name;
+    if(!a.renewalNum)a.renewalNum=1;
+    if(!a.notes)a.notes='';
+    if(!a.maintenance)a.maintenance=[];
     showToast('✅ تم التعديل');
   }
-  await saveData();
-  closeModal();renderAll();
+  await saveData();closeModal();renderAll();
 }
 
 function openVacate(id){vacatingId=id;const a=apartments.find(x=>x.id===id);document.getElementById('vacateMsg').textContent=`إخلاء شقة ${a.num} (${a.name})؟`;document.getElementById('vacateModal').classList.add('show')}
@@ -1042,74 +920,73 @@ function closeVacate(){document.getElementById('vacateModal').classList.remove('
 async function confirmVacate(){
   const a=apartments.find(x=>x.id===vacatingId);if(!a)return;
   await pushUndo('إخلاء شقة '+a.num);
-  archive.push({num:a.num,name:a.name,contract:a.contract,meter:a.meter||"",start:a.start,end:a.end,rent:a.rent,payments:a.payments,durationMonths:a.durationMonths||12,renewalNum:a.renewalNum||1,yearNum:a.yearNum||1,paid:[...(a.paid||[])],notes:a.notes,maintenance:[...(a.maintenance||[])],archivedOn:today.toISOString().split('T')[0],reason:'إخلاء'});
+  archive.push({num:a.num,name:a.name,contract:a.contract,meter:a.meter||"",phone:a.phone||"",start:a.start,end:a.end,rent:a.rent,payments:a.payments,durationMonths:a.durationMonths||12,renewalNum:a.renewalNum||1,yearNum:a.yearNum||1,paid:[...(a.paid||[])],notes:a.notes,maintenance:[...(a.maintenance||[])],archivedOn:today.toISOString().split('T')[0],reason:'إخلاء'});
   await saveArchive();
-  a.name='';a.contract='';a.start='';a.end='';a.rent=0;a.payments=0;a.durationMonths=12;a.renewalNum=0;a.yearNum=0;a.paid=[];a.notes='';a.autoRenewPaid=false;a.autoRenewDate='';a.vacant=true;a.maintenance=[];
+  a.name='';a.contract='';a.phone='';a.start='';a.end='';
+  a.rent=0;a.payments=0;a.durationMonths=12;a.renewalNum=0;a.yearNum=0;
+  a.paid=[];a.notes='';a.autoRenewPaid=false;a.autoRenewDate='';
+  a.vacant=true;a.maintenance=[];
   await saveData();
   closeVacate();renderAll();showToast('📁 تم الإخلاء والأرشفة');
 }
 
 function renderAll(){renderStats();renderApartments(document.getElementById('searchInput')?document.getElementById('searchInput').value:'');renderDues();renderExpiring();renderSummary();renderAlerts();renderArchive();updateUndoBtn()}
 
-/* ═══════════════════════════════════════════════════════════════
-   ✅ التهيئة الأولية للتطبيق
-   ═══════════════════════════════════════════════════════════════ */
+/* ✅ كشف ما إذا كان التطبيق يعمل في وضع PWA */
+function isStandalone(){
+  return window.matchMedia('(display-mode: standalone)').matches || 
+         window.navigator.standalone === true ||
+         document.referrer.startsWith('android-app://');
+}
+
+/* ✅ إخفاء تنبيه التثبيت */
+async function dismissInstallHint(){
+  document.getElementById('installHint').classList.remove('show');
+  await dbSetMeta('install_hint_dismissed','done');
+}
+
+/* ✅ عرض تنبيه التثبيت (مرة واحدة فقط) */
+async function maybeShowInstallHint(){
+  if(isStandalone())return; // إذا كان مثبتاً بالفعل، لا نعرض التنبيه
+  const dismissed=await dbGetMeta('install_hint_dismissed');
+  if(dismissed)return;
+  setTimeout(()=>{
+    document.getElementById('installHint').classList.add('show');
+  },3000);
+}
+
 async function initApp(){
   try{
-    // 1. فتح قاعدة البيانات
     await openDB();
-    
-    // 2. ترحيل البيانات من LocalStorage (إن وجدت)
     const migrated=await migrateFromLocalStorage();
-    
-    // 3. تحميل البيانات من IndexedDB
     await loadAllData();
-    
-    // 4. إذا كانت قاعدة البيانات فارغة، استخدم البيانات الافتراضية
     if(!apartments.length){
       apartments=getDefaultData();
       await saveData();
     }
-    
-    // 5. تحديث الواجهة
     renderAll();
-    
-    // 6. إخفاء شاشة التحميل
     setTimeout(()=>{
       document.getElementById('loadingScreen').classList.add('hidden');
       document.getElementById('dbIndicator').style.display='flex';
       setTimeout(()=>{document.getElementById('dbIndicator').style.display='none'},3000);
     },500);
-    
-    // 7. رسالة الترحيب إذا تم الترحيل
     if(migrated){
-      setTimeout(()=>{
-        showToast('✅ تم نقل بياناتك إلى IndexedDB بنجاح');
-      },800);
+      setTimeout(()=>{showToast('✅ تم نقل بياناتك إلى IndexedDB بنجاح')},800);
     }
-    
-    // 8. ربط مستمعي الإجمالي للصيانة
     setTimeout(()=>{
       const mat=document.getElementById('maintMaterials');
       const lab=document.getElementById('maintLabor');
       if(mat)mat.oninput=updateMaintTotal;
       if(lab)lab.oninput=updateMaintTotal;
     },200);
-    
+    // ✅ عرض تنبيه التثبيت
+    await maybeShowInstallHint();
   }catch(err){
     console.error('خطأ في التهيئة:',err);
-    document.getElementById('loadingScreen').innerHTML=`
-      <div style="text-align:center;padding:20px">
-        <div style="font-size:50px;margin-bottom:15px">❌</div>
-        <div class="loading-text">حدث خطأ في تهيئة قاعدة البيانات</div>
-        <div class="loading-subtext" style="margin-top:10px">${err.message}</div>
-        <button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;background:#fff;color:#1e40af;border:none;border-radius:10px;font-weight:bold;cursor:pointer">🔄 إعادة المحاولة</button>
-      </div>
-    `;
+    document.getElementById('loadingScreen').innerHTML=`<div style="text-align:center;padding:20px"><div style="font-size:50px;margin-bottom:15px">❌</div><div class="loading-text">حدث خطأ في تهيئة قاعدة البيانات</div><div class="loading-subtext" style="margin-top:10px">${err.message}</div><button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;background:#fff;color:#1e40af;border:none;border-radius:10px;font-weight:bold;cursor:pointer">🔄 إعادة المحاولة</button></div>`;
   }
 }
 
-// ✅ بدء التطبيق
 initApp();
 </script>
 </body>
